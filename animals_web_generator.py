@@ -28,17 +28,18 @@ def get_animals_data(animal_data):
     """ Returns the animals data """
     output = ""
     for animal in animal_data:
-        output += '<li class="cards__item">'
+        output += "<li class='cards__item'>"
         if "name" in animal:
-            output += f"Name: {animal['name']}<br>\n"
+            output += f"<div class='card__title'>{animal['name']}</div>\n"
+        output += "<p class='card__text'>"
         if "diet" in animal["characteristics"]:
-            output += f"Diet: {animal['characteristics']['diet']}<br>\n"
+            output += f"<strong>Diet:</strong> {animal['characteristics']['diet']}<br/>\n"
         if "locations" in animal and len(animal["locations"]) > 0:
-            output += f"Location: {animal['locations'][0]}<br>\n"
+            output += f"<strong>Location:</strong> {animal['locations'][0]}<br/>\n"
         if "type" in animal["characteristics"]:
-            output += f"Type: {animal['characteristics']['type']}<br>\n"
-        output += "\n"
-        output += "</li>"
+            output += f"<strong>Type:</strong> {animal['characteristics']['type']}<br/>\n"
+        output += "</p>\n"
+        output += "</li>\n"
     return output
 
 def create_new_html_string():
