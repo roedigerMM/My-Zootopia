@@ -11,12 +11,16 @@ def serialize_animal(animal):
     if "name" in animal:
         output += f"<div class='card__title'>{animal['name']}</div>\n"
     output += "<p class='card__text'>"
+    if "scientific_name" in animal["taxonomy"]:
+        output += f"<strong>Scientific Name:</strong> {animal['taxonomy']['scientific_name']}<br/>\n"
     if "diet" in animal["characteristics"]:
         output += f"<strong>Diet:</strong> {animal['characteristics']['diet']}<br/>\n"
     if "locations" in animal and len(animal["locations"]) > 0:
         output += f"<strong>Location:</strong> {animal['locations'][0]}<br/>\n"
     if "type" in animal["characteristics"]:
         output += f"<strong>Type:</strong> {animal['characteristics']['type']}<br/>\n"
+    if "lifespan" in animal["characteristics"]:
+        output += f"<strong>Lifespan:</strong> {animal['characteristics']['lifespan']}<br/>\n"
     output += "</p>\n"
     output += "</li>\n"
     return output
