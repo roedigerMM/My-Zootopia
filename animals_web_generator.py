@@ -10,19 +10,18 @@ def serialize_animal(animal):
     output += "<li class='cards__item'>"
     if "name" in animal:
         output += f"<div class='card__title'>{animal['name']}</div>\n"
-    output += "<p class='card__text'>"
     if "scientific_name" in animal["taxonomy"]:
-        output += f"<strong>Scientific Name:</strong> {animal['taxonomy']['scientific_name']}<br/>\n"
+        output += f"<div class='card__subtitle'>{animal['taxonomy']['scientific_name']}</div>\n"
+    output += "<div class='card__text'>\n<ul>"
     if "diet" in animal["characteristics"]:
-        output += f"<strong>Diet:</strong> {animal['characteristics']['diet']}<br/>\n"
+        output += f"<li><strong>Diet:</strong> {animal['characteristics']['diet']}</li>\n"
     if "locations" in animal and len(animal["locations"]) > 0:
-        output += f"<strong>Location:</strong> {animal['locations'][0]}<br/>\n"
+        output += f"<li><strong>Location:</strong> {animal['locations'][0]}</li>\n"
     if "type" in animal["characteristics"]:
-        output += f"<strong>Type:</strong> {animal['characteristics']['type']}<br/>\n"
+        output += f"<li><strong>Type:</strong> {animal['characteristics']['type']}</li>\n"
     if "lifespan" in animal["characteristics"]:
-        output += f"<strong>Lifespan:</strong> {animal['characteristics']['lifespan']}<br/>\n"
-    output += "</p>\n"
-    output += "</li>\n"
+        output += f"<li><strong>Lifespan:</strong> {animal['characteristics']['lifespan']}</li>\n"
+    output += "</ul>\n</div>\n</li>\n"
     return output
 
 
