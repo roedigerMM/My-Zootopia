@@ -24,22 +24,30 @@ def get_html_template():
     with open("animals_template.html", "r") as template:
        return template.read()
 
+
+def serialize_animal(animal):
+    """ Serializes an animal into the  needed structure for the html template """
+    output = ""
+    output += "<li class='cards__item'>"
+    if "name" in animal:
+        output += f"<div class='card__title'>{animal['name']}</div>\n"
+    output += "<p class='card__text'>"
+    if "diet" in animal["characteristics"]:
+        output += f"<strong>Diet:</strong> {animal['characteristics']['diet']}<br/>\n"
+    if "locations" in animal and len(animal["locations"]) > 0:
+        output += f"<strong>Location:</strong> {animal['locations'][0]}<br/>\n"
+    if "type" in animal["characteristics"]:
+        output += f"<strong>Type:</strong> {animal['characteristics']['type']}<br/>\n"
+    output += "</p>\n"
+    output += "</li>\n"
+    return output
+
+
 def get_animals_data(animal_data):
     """ Returns the animals data """
     output = ""
     for animal in animal_data:
-        output += "<li class='cards__item'>"
-        if "name" in animal:
-            output += f"<div class='card__title'>{animal['name']}</div>\n"
-        output += "<p class='card__text'>"
-        if "diet" in animal["characteristics"]:
-            output += f"<strong>Diet:</strong> {animal['characteristics']['diet']}<br/>\n"
-        if "locations" in animal and len(animal["locations"]) > 0:
-            output += f"<strong>Location:</strong> {animal['locations'][0]}<br/>\n"
-        if "type" in animal["characteristics"]:
-            output += f"<strong>Type:</strong> {animal['characteristics']['type']}<br/>\n"
-        output += "</p>\n"
-        output += "</li>\n"
+        output += serialize_animal(animal)
     return output
 
 def create_new_html_string():
