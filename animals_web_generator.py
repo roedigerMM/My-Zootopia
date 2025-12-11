@@ -1,32 +1,11 @@
-import json
+from animals_json_handling import load_data
+from animals_html_handling import *
 
-def load_data(file_path):
-    """ Loads a JSON file """
-    with open(file_path, "r") as handle:
-        return json.load(handle)
-
-animals_data = load_data("animals_data.json")
-
-def display_animal_info(animal_data):
-    """ Displays information about an animal """
-    for animal in animal_data:
-        if "name" in animal:
-            print(f"\nName: {animal['name']}")
-        if "diet" in animal["characteristics"]:
-            print(f"Diet: {animal['characteristics']['diet']}")
-        if "locations" in animal and len(animal["locations"]) > 0:
-            print(f"Location: {animal['locations'][0]}")
-        if "type" in animal["characteristics"]:
-            print(f"Type: {animal['characteristics']['type']}")
-
-def get_html_template():
-    """ Returns the HTML template """
-    with open("animals_template.html", "r") as template:
-       return template.read()
-
+animals_data = load_data()
 
 def serialize_animal(animal):
-    """ Serializes an animal into the  needed structure for the html template """
+    """ Serializes a single animal item into the needed structure for the html template and
+    returns it as a string."""
     output = ""
     output += "<li class='cards__item'>"
     if "name" in animal:
@@ -44,23 +23,16 @@ def serialize_animal(animal):
 
 
 def get_animals_data(animal_data):
-    """ Returns the animals data """
+    """ Creates and returns the complete String with animal information to be inserted
+    into the html template """
     output = ""
     for animal in animal_data:
         output += serialize_animal(animal)
     return output
 
-def create_new_html_string():
-    """ Creates a new HTML string """
-    html_template = get_html_template()
-    animal_data = get_animals_data(animals_data)
-    new_html_string = html_template.replace("__REPLACE_ANIMALS_INFO__", animal_data)
-    return new_html_string
 
-def write_new_html_file():
-    """ Writes a new HTML file """
-    html_content = create_new_html_string()
-    with open("animals.html", "w") as new_file:
-        new_file.write(html_content)
+def main():
+    write_new_html_file(get_animals_data(animals_data))
 
-write_new_html_file()
+if __name__ == "__main__":
+    main()
